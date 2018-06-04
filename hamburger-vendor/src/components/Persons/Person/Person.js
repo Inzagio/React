@@ -1,14 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classes from './Person.css';
+import withClass from '../../../hoc/withClass';
+import Aux from '../../../hoc/Auxiliary/Auxiliary';
 
-const person = (props) => {
-    return (
-        <div className={classes.Person}>
-            <p onClick={props.click}>I'm {props.name} and I'm {props.age} years old</p>
-            <p>{props.children}</p>
-            <input type="text" onChange={props.changed} value={props.name} />
-        </div>
-    )
+class Person extends Component {
+    constructor(props) {
+        super(props);
+        console.log('[Person.js] Inside Constructor', props);
+   
+      }
+    
+      componentWillMount(){
+        console.log('[Person.js] Inside componentWillMount');
+      }
+    
+      componentDidMount(){
+        console.log('[Person.js] component did mount');
+        
+      }
+    
+    render() {
+        console.log('[Person.js] Inside Render');
+        
+        return (
+            <Aux>
+            <p onClick={this.props.click}>I'm {this.props.name} and I'm {this.props.age} years old</p>
+                <p>{this.props.children}</p>
+                <input type="text" onChange={this.props.changed} value={this.props.name} />
+            </Aux>
+        )
+    }
 }
 
-export default person;
+//Ruleset for props in Person state object.
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func
+};
+
+export default withClass(Person, classes.Person);
